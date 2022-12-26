@@ -2,13 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import millify from 'millify';
 
-import { useGetCryptosQuery } from '../services/cryptoApi';
+import { useGetCryptosHomeQuery } from '../services/cryptoApi';
 
 import { Cryptocurrencies, News } from '../components';
 
 const HomePage = () => {
-  const { data, isFetching } = useGetCryptosQuery(10);
+  const { data, isFetching } = useGetCryptosHomeQuery();
   const globalStats = data?.data?.stats;
+
+  console.log(data?.data?.stats);
 
   if (isFetching) return 'Loading...';
 
@@ -19,23 +21,23 @@ const HomePage = () => {
         <div className="grid grid-cols-4 gap-4">
           <div className="flex flex-col">
             <span>Total Cryptocurrencies</span>
-            <span>{globalStats.total}</span>
+            <span>{globalStats?.total}</span>
           </div>
           <div className="flex flex-col">
             <span>Total Exchanges</span>
-            <span>{millify(globalStats.totalExchanges)}</span>
+            <span>{millify(globalStats?.totalExchanges)}</span>
           </div>
           <div className="flex flex-col">
             <span>Total Market Cap</span>
-            <span>{millify(globalStats.totalMarketCap)}</span>
+            <span>{millify(globalStats?.totalMarketCap)}</span>
           </div>
           <div className="flex flex-col">
             <span>Total Markets</span>
-            <span>{millify(globalStats.totalMarkets)}</span>
+            <span>{millify(globalStats?.totalMarkets)}</span>
           </div>
           <div className="flex flex-col">
             <span>Total 24h Volume</span>
-            <span>{millify(globalStats.total24hVolume)}</span>
+            <span>{millify(globalStats?.total24hVolume)}</span>
           </div>
         </div>
       </div>

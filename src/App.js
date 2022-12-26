@@ -9,6 +9,7 @@ import {
   News,
   Exchanges,
 } from './components';
+import CoinExchanges from './components/CryptoExchanges';
 
 const App = () => {
   return (
@@ -21,10 +22,14 @@ const App = () => {
         <div className="p-5">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/exchanges" element={<Exchanges />} />
+            <Route path="/exchanges/:exchangeId" element={<Exchanges />} />
             <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
             <Route path="/crypto/:coinId" element={<CryptoDetails />} />
             <Route path="/news" element={<News />} />
+            <Route
+              path="/crypto/:coinId/exchanges"
+              element={<CoinExchanges />}
+            />
           </Routes>
         </div>
         <div className="flex flex-col p-5 items-center bg-[#001529] ">

@@ -2,13 +2,31 @@ import React, { useState, useEffect } from 'react';
 import millify from 'millify';
 import { Link } from 'react-router-dom';
 import { useGetCryptosQuery } from '../services/cryptoApi';
+import Select from 'react-select';
+import { useStateContext } from '../context/StateContext';
+import { NumericFormat } from 'react-number-format';
 
 const Cryptocurrencies = ({ simplified }) => {
-  const count = simplified ? 10 : 100;
-  const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
-  const [cryptos, setCryptos] = useState([]);
+  const {
+    timePeriod,
+    currencyId,
+    currencyLabel,
+    optionsCurrency,
+    optionsTimePeriod,
+    handleChangeCurrency,
+    handleChangePeriod,
+  } = useStateContext();
 
+  const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const { data: cryptoList, isFetching } = useGetCryptosQuery({
+    count: simplified ? 10 : 100,
+    currencyId,
+    timePeriod,
+  });
+
+  console.log(cryptos);
 
   const handleChangeInput = (event) => {
     setSearchTerm(event.target.value);
@@ -18,7 +36,6 @@ const Cryptocurrencies = ({ simplified }) => {
     const filteredData = cryptoList?.data?.coins.filter((coin) =>
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
-
     setCryptos(filteredData);
   }, [cryptoList, searchTerm]);
 
@@ -27,12 +44,33 @@ const Cryptocurrencies = ({ simplified }) => {
     <>
       <div className="my-7">
         {!simplified && (
-          <input
-            type={'text'}
-            placeholder="Search Cryptocurrency"
-            onChange={handleChangeInput}
-            value={searchTerm}
-          />
+          <>
+            <div className="flex flex-row">
+              <Select
+                onChange={handleChangePeriod}
+                options={optionsTimePeriod}
+                defaultValue={{
+                  value: `${timePeriod}`,
+                  label: `${timePeriod}`,
+                }}
+              />
+              <Select
+                onChange={handleChangeCurrency}
+                options={optionsCurrency}
+                defaultValue={{
+                  value: `${currencyId}`,
+                  label: `${currencyLabel}`,
+                }}
+              />
+            </div>
+
+            <input
+              type={'text'}
+              placeholder="Search Cryptocurrency"
+              onChange={handleChangeInput}
+              value={searchTerm}
+            />
+          </>
         )}
       </div>
       <div className="flex flex-wrap gap-4">
@@ -50,7 +88,18 @@ const Cryptocurrencies = ({ simplified }) => {
             </div>
             <p>Price: {millify(currency.price)}</p>
             <p>Market Cap: {millify(currency.marketCap)}</p>
-            <p>Daily Change: {millify(currency.change)}%</p>
+            <p>
+              {timePeriod} Change:{' '}
+              <NumericFormat
+                value={currency.change}
+                displayType="text"
+                decimalScale={2}
+                suffix={'%'}
+                className={
+                  currency.change < 0 ? 'text-red-500' : 'text-green-500'
+                }
+              />
+            </p>
           </Link>
         ))}
       </div>

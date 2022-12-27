@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useGetCryptoCoinExchangesQuery } from '../services/cryptoApi';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
-import { useStateContext } from '../context/StateContext';
 import millify from 'millify';
+import { useStateContext } from '../../context/StateContext';
+import { useGetCryptoCoinExchangesQuery } from '../../services/cryptoApi';
 
 const CryptoExchanges = ({ simplified }) => {
+  const { coinId } = useParams();
   const count = simplified ? 5 : 100;
 
   const { currencyId, currencySign } = useStateContext();
 
-  const { coinId } = useParams();
+  const [coinExchanges, setCoinExchanges] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { data: cryptoCoinExchanges, isFetching } =
     useGetCryptoCoinExchangesQuery({
@@ -18,14 +20,6 @@ const CryptoExchanges = ({ simplified }) => {
       count,
       currencyId,
     });
-
-  const [coinExchanges, setCoinExchanges] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  console.log(coinExchanges);
-
-  const handleChangeInput = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   useEffect(() => {
     const filteredData = cryptoCoinExchanges?.data?.exchanges.filter(

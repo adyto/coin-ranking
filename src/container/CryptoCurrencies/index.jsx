@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import millify from 'millify';
-import { Link } from 'react-router-dom';
-import { useGetCryptosQuery } from '../services/cryptoApi';
 import Select from 'react-select';
-import { useStateContext } from '../context/StateContext';
+import { Link } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
 
-const Cryptocurrencies = ({ simplified }) => {
+import { useGetCryptosQuery } from '../../services/cryptoApi';
+import { useStateContext } from '../../context/StateContext';
+
+const CryptoCurrencies = ({ simplified }) => {
   const {
     timePeriod,
     currencyId,
@@ -25,8 +26,6 @@ const Cryptocurrencies = ({ simplified }) => {
     currencyId,
     timePeriod,
   });
-
-  console.log(cryptos);
 
   const handleChangeInput = (event) => {
     setSearchTerm(event.target.value);
@@ -107,4 +106,4 @@ const Cryptocurrencies = ({ simplified }) => {
   );
 };
 
-export default Cryptocurrencies;
+export default CryptoCurrencies;

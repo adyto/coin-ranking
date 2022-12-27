@@ -56,7 +56,6 @@ export const StateContext = ({ children }) => {
   const handleChangePeriod = (value) => {
     setTimePeriod(value.value);
   };
-
   const handleChangeCurrency = (value) => {
     setCurrencyId(value.value);
     setCurrencyLabel(value.label);

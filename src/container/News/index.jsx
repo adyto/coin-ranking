@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment/moment';
 import Select from 'react-select';
 
-import { useGetCryptoNewsQuery } from '../services/cryptoNews';
-import { useGetCryptosQuery } from '../services/cryptoApi';
-import { data } from 'autoprefixer';
+import { useGetCryptoNewsQuery } from '../../services/cryptoNews';
+import { useGetCryptosQuery } from '../../services/cryptoApi';
 
 const News = ({ simplified }) => {
   const [newsCategory, setNewsCategory] = useState('Crypto');
@@ -25,8 +24,6 @@ const News = ({ simplified }) => {
     value: item.name,
     label: item.name,
   }));
-
-  console.log(cryptoNews.value);
   return (
     <>
       <div className="my-7">

@@ -1,15 +1,14 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-
+import { Navbar } from './components';
 import {
-  Navbar,
-  Cryptocurrencies,
   CryptoDetails,
+  CryptoCurrencies,
   HomePage,
-  News,
   Exchanges,
-} from './components';
-import CoinExchanges from './components/CryptoExchanges';
+  News,
+  CryptoExchanges,
+} from './container';
 
 const App = () => {
   return (
@@ -23,12 +22,12 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/exchanges/:exchangeId" element={<Exchanges />} />
-            <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+            <Route path="/cryptocurrencies" element={<CryptoCurrencies />} />
             <Route path="/crypto/:coinId" element={<CryptoDetails />} />
             <Route path="/news" element={<News />} />
             <Route
               path="/crypto/:coinId/exchanges"
-              element={<CoinExchanges />}
+              element={<CryptoExchanges />}
             />
           </Routes>
         </div>

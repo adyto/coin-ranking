@@ -1,30 +1,29 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import millify from 'millify';
-import HTMLReactParser from 'html-react-parser';
 import Select from 'react-select';
+import moment from 'moment/moment';
+import timestamp from 'unix-timestamp';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { CiBitcoin } from 'react-icons/ci';
 import { IoWaterOutline } from 'react-icons/io5';
 import { IoMdPodium } from 'react-icons/io';
 import { BiWater } from 'react-icons/bi';
 import { CiTimer } from 'react-icons/ci';
-import { NumericFormat } from 'react-number-format';
-import timestamp from 'unix-timestamp';
-import moment from 'moment/moment';
-import { Link } from 'react-router-dom';
-
+import { useStateContext } from '../../context/StateContext';
 import {
   useGetCryptoDetailsQuery,
   useGetCryptoHistorysQuery,
   useGetCryptoIssuancesQuery,
   useGetCryptoPricesQuery,
   useGetCryptoSupplysQuery,
-} from '../services/cryptoApi';
-import CryptoExchanges from './CryptoExchanges';
-import { useStateContext } from '../context/StateContext';
+} from '../../services/cryptoApi';
+
+import { CryptoExchanges } from '../index';
 
 const CryptoDetails = () => {
+  const { coinId } = useParams();
   const {
     timePeriod,
     currencyId,
@@ -36,15 +35,14 @@ const CryptoDetails = () => {
     handleChangeCurrency,
     handleChangePeriod,
   } = useStateContext();
-  const { coinId } = useParams();
 
-  const { data: cryptoPrices } = useGetCryptoPricesQuery({
-    coinId,
-    currencyId,
-  });
   const { data: cryptoDetails, isFetching } = useGetCryptoDetailsQuery({
     coinId,
     timePeriod,
+    currencyId,
+  });
+  const { data: cryptoPrices } = useGetCryptoPricesQuery({
+    coinId,
     currencyId,
   });
   const { data: cryptoHistorys } = useGetCryptoHistorysQuery({
@@ -52,11 +50,9 @@ const CryptoDetails = () => {
     timePeriod,
     currencyId,
   });
-
   const { data: cryptoSupplys } = useGetCryptoSupplysQuery({
     coinId,
   });
-
   const { data: cryptoIssuances } = useGetCryptoIssuancesQuery({
     coinId,
   });
@@ -164,7 +160,6 @@ const CryptoDetails = () => {
   ];
 
   if (isFetching) return 'Loading..';
-
   return (
     <>
       <div className="flex flex-col items-center">
@@ -251,7 +246,7 @@ const CryptoDetails = () => {
               ))}
             </div>
             {/* <span>
-            </span> */}
+          </span> */}
           </div>
         </div>
         <div className="flex justify-between items-center mt-10">

@@ -1,19 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import millify from 'millify';
+import { Link } from 'react-router-dom';
 
-import { useGetCryptosHomeQuery } from '../services/cryptoApi';
-
-import { Cryptocurrencies, News } from '../components';
+import { useGetCryptosHomeQuery } from '../../services/cryptoApi';
+import { CryptoCurrencies, News } from '../index';
 
 const HomePage = () => {
   const { data, isFetching } = useGetCryptosHomeQuery();
   const globalStats = data?.data?.stats;
 
-  console.log(data?.data?.stats);
-
   if (isFetching) return 'Loading...';
-
   return (
     <>
       <h1 className="text-2xl font-bold">Global Crypto Stats</h1>
@@ -47,7 +43,7 @@ const HomePage = () => {
           <Link to={'/cryptocurrencies'}>Show more</Link>
         </h3>
       </div>
-      <Cryptocurrencies simplified />
+      <CryptoCurrencies simplified />
       <div className="flex justify-between items-center mt-10">
         <h2>Latest Crypto News</h2>
         <h3>

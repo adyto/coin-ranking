@@ -63,6 +63,11 @@ export const StateContext = ({ children }) => {
     setCurrencySign(value.sign);
   };
 
+  const [darkMode, setDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setDarkMode((prevDarkMode) => !prevDarkMode);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -75,6 +80,9 @@ export const StateContext = ({ children }) => {
         optionsTimePeriod,
         handleChangePeriod,
         handleChangeCurrency,
+        darkMode,
+        setDarkMode,
+        toggleDarkMode,
       }}
     >
       {children}

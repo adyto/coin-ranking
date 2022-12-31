@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useGetCryptosHomeQuery } from '../../services/cryptoApi';
 import { CryptoCurrencies, News } from '../index';
+import { Navbar } from '../../components';
 
 const HomePage = () => {
   const { data, isFetching } = useGetCryptosHomeQuery();
@@ -11,7 +12,8 @@ const HomePage = () => {
 
   if (isFetching) return 'Loading...';
   return (
-    <>
+    <div>
+      <Navbar />
       <h1 className="text-2xl font-bold">Global Crypto Stats</h1>
       <div className="flex flex-row">
         <div className="grid grid-cols-4 gap-4">
@@ -51,7 +53,7 @@ const HomePage = () => {
         </h3>
       </div>
       <News simplified />
-    </>
+    </div>
   );
 };
 

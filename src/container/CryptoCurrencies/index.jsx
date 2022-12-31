@@ -38,6 +38,10 @@ const CryptoCurrencies = ({ simplified }) => {
     setCryptos(filteredData);
   }, [cryptoList, searchTerm]);
 
+  console.log(cryptos);
+
+  console.log(cryptoList?.data?.stats);
+
   if (isFetching) return 'Loading ...';
   return (
     <>
@@ -62,7 +66,6 @@ const CryptoCurrencies = ({ simplified }) => {
                 }}
               />
             </div>
-
             <input
               type={'text'}
               placeholder="Search Cryptocurrency"

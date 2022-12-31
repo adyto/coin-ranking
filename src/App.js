@@ -8,6 +8,7 @@ import {
   Exchanges,
   News,
   CryptoExchanges,
+  CryptoMarkets,
 } from './container';
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
               path="/crypto/:coinId/exchanges"
               element={<CryptoExchanges />}
             />
+            <Route path="/crypto/:coinId/markets" element={<CryptoMarkets />} />
           </Routes>
         </div>
         <div className="flex flex-col p-5 items-center bg-[#001529] ">

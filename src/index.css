@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .coin-desc-link h3 {
+    @apply font-bold text-pink-400;
+  }
+  .coin-desc-link p {
+    @apply text-base opacity-90 text-pink-300;
+  }
+  .coin-desc-link a {
+    @apply text-yellow-200 underline;
+  }
+}

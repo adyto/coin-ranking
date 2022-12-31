@@ -10,3 +10,4 @@ export { default as CryptoValue } from './CryptoDetails/CryptoValue';
 export { default as CryptoSupply } from './CryptoDetails/CryptoSupply';
 export { default as CryptoDescription } from './CryptoDetails/CryptoDescription';
 export { default as CryptoLinks } from './CryptoDetails/CryptoLinks';
+export { default as CryptoChart } from './CryptoDetails/CryptoChart';

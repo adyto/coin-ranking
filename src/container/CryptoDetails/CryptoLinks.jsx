@@ -26,6 +26,7 @@ const CryptoLinks = ({ cryptoDetail }) => {
           key={res.url}
           href={res?.url}
           target="_blank"
+          rel="noreferrer"
           className="flex flex-row justify-between items-center w-96"
         >
           <div className="flex flex-row items-center">

@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { useStateContext } from '../../context/StateContext';
 import {
   useGetCryptoDetailsQuery,
-  useGetCryptoHistorysQuery,
   useGetCryptoPricesQuery,
 } from '../../services/cryptoApi';
 
@@ -18,8 +17,8 @@ import {
   CryptoSupply,
   CryptoDescription,
   CryptoLinks,
+  CryptoChart,
 } from '../index';
-import { LineChart } from '../../components';
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
@@ -44,15 +43,9 @@ const CryptoDetails = () => {
     coinId,
     currencyId,
   });
-  const { data: cryptoHistorys } = useGetCryptoHistorysQuery({
-    coinId,
-    timePeriod,
-    currencyId,
-  });
 
   const cryptoDetail = cryptoDetails?.data?.coin;
   const cryptoPrice = cryptoPrices?.data;
-  const cryptoHistory = cryptoHistorys?.data;
 
   if (isFetching) return 'Loading..';
 
@@ -77,14 +70,18 @@ const CryptoDetails = () => {
           defaultValue={{ value: `${currencyId}`, label: `${currencyLabel}` }}
         />
       </div>
-      <LineChart
-        cryptoHistory={cryptoHistory}
-        currenctPrice={millify(cryptoDetail.price)}
+      <CryptoChart
+        coinId={coinId}
         coinName={cryptoDetail.name}
+        currenctPrice={millify(cryptoDetail.price)}
       />
       <div className="flex flex-col">
         <div className="flex flex-row my-4 items-center gap-2">
-          <img src={cryptoDetail.iconUrl} className="w-16 h-16 " />
+          <img
+            src={cryptoDetail.iconUrl}
+            className="w-16 h-16 "
+            alt="icon-url"
+          />
           <p>{cryptoDetail.name}</p>
           <p>{cryptoDetail.symbol}</p>
           <p>{cryptoDetail.rank}</p>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useGetCryptoHistorysQuery } from '../../services/cryptoApi';
+import { useStateContext } from '../../context/StateContext';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -21,10 +23,18 @@ ChartJS.register(
   Legend,
 );
 
-const LineChart = ({ cryptoHistory, currenctPrice, coinName }) => {
+const CryptoChart = ({ coinId, currenctPrice, coinName }) => {
+  const { timePeriod, currencyId } = useStateContext();
+
+  const { data: cryptoHistorys } = useGetCryptoHistorysQuery({
+    coinId,
+    timePeriod,
+    currencyId,
+  });
+  const cryptoHistory = cryptoHistorys?.data;
+
   const coinPrice = [];
   const coinTimestamp = [];
-
   for (let i = 0; i < cryptoHistory?.history.length; i += 1) {
     coinPrice.push(cryptoHistory.history[i].price);
     coinTimestamp.push(cryptoHistory.history[i].timestamp);
@@ -42,7 +52,6 @@ const LineChart = ({ cryptoHistory, currenctPrice, coinName }) => {
       },
     ],
   };
-
   const options = {
     // scales: {
     //   y: [
@@ -54,14 +63,15 @@ const LineChart = ({ cryptoHistory, currenctPrice, coinName }) => {
     //   ],
     // },
   };
+
   return (
     <>
       <p>{coinName} Price Chart</p>
-      <p>{cryptoHistory?.change}</p>
+      <p>Change: {cryptoHistory?.change}</p>
       <p>Currenct Price {currenctPrice}</p>
       <Line data={data} options={options} />
     </>
   );
 };
 
-export default LineChart;
+export default CryptoChart;

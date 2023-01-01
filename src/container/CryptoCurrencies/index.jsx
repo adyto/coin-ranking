@@ -102,7 +102,7 @@ const CryptoCurrencies = ({ simplified }) => {
           >
             <div className="flex flex-row justify-between items-center">
               <span>
-                {++i}. {currency.name}
+                {++i + pageOffset}. {currency.name}
               </span>
               <img src={currency.iconUrl} className="w-9" />
             </div>

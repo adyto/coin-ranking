@@ -1,41 +1,76 @@
 import React from 'react';
 import millify from 'millify';
 import { Link } from 'react-router-dom';
-
-import { useGetCryptosHomeQuery } from '../../services/cryptoApi';
 import { CryptoCurrencies, News } from '../index';
 import { Navbar } from '../../components';
+import { useGetCryptosStatsQuery } from '../../services/cryptoApi';
+import { useStateContext } from '../../context/StateContext';
 
 const HomePage = () => {
-  const { data, isFetching } = useGetCryptosHomeQuery();
-  const globalStats = data?.data?.stats;
+  const { currencyId, currencySign, currencySymbol } = useStateContext();
+  const { data: cryptoStats, isFetching } = useGetCryptosStatsQuery({
+    currencyId,
+  });
+
+  const cryptoStat = cryptoStats?.data;
+  console.log(cryptoStat);
 
   if (isFetching) return 'Loading...';
+
   return (
-    <div>
-      <Navbar />
-      <h1 className="text-2xl font-bold">Global Crypto Stats</h1>
-      <div className="flex flex-row">
-        <div className="grid grid-cols-4 gap-4">
+    <div className="flex flex-col container mx-auto">
+      <Navbar cryptoStat={cryptoStat} />
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold">
+          Today's Cryptocurrency Prices by Market Cap
+        </h1>
+        <h2 className="font-medium text-sm">
+          The global crypto market cap is{' '}
+          <span className="font-bold">
+            {`${currencySign !== `null` ? currencySign : currencySymbol}`}
+            {millify(cryptoStat?.totalMarketCap, {
+              units: ['', 'K', 'million', 'billion', 'T', 'P', 'E'],
+              space: true,
+              precision: 2,
+            })}
+          </span>
+        </h2>
+      </div>
+      <div className="flex flex-row gap-4 justify-center mt-8">
+        <div className="border w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
           <div className="flex flex-col">
-            <span>Total Cryptocurrencies</span>
-            <span>{globalStats?.total}</span>
+            <p className="font-semibold text-center mb-2">Best Coins</p>
+            {cryptoStat.bestCoins.map((res, i) => (
+              <Link
+                to={`/crypto/${res.uuid}`}
+                className="flex flex-row items-center gap-4 justify-right my-2"
+              >
+                <p className="text-xs w-4 text-center">{++i}</p>
+                <div className="flex flex-row space-x-2">
+                  <img src={res.iconUrl} className="w-4 h-4" />
+                  <span className="text-xs font-bold">{res.name}</span>
+                  <span className="text-xs">{res.symbol}</span>
+                </div>
+              </Link>
+            ))}
           </div>
+        </div>
+        <div className="border w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
           <div className="flex flex-col">
-            <span>Total Exchanges</span>
-            <span>{millify(globalStats?.totalExchanges)}</span>
-          </div>
-          <div className="flex flex-col">
-            <span>Total Market Cap</span>
-            <span>{millify(globalStats?.totalMarketCap)}</span>
-          </div>
-          <div className="flex flex-col">
-            <span>Total Markets</span>
-            <span>{millify(globalStats?.totalMarkets)}</span>
-          </div>
-          <div className="flex flex-col">
-            <span>Total 24h Volume</span>
-            <span>{millify(globalStats?.total24hVolume)}</span>
+            <p className="font-semibold text-center mb-2">Newest Coins</p>
+            {cryptoStat.newestCoins.map((res, i) => (
+              <Link
+                to={`/crypto/${res.uuid}`}
+                className="flex flex-row items-center gap-4 justify-right my-2"
+              >
+                <p className="text-xs w-4 text-center">{++i}</p>
+                <div className="flex flex-row space-x-2">
+                  <img src={res.iconUrl} className="w-4 h-4" />
+                  <span className="text-xs font-bold">{res.name}</span>
+                  <span className="text-xs">{res.symbol}</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import millify from 'millify';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
+import ReactPaginate from 'react-paginate';
 
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { useStateContext } from '../../context/StateContext';
@@ -31,16 +32,33 @@ const CryptoCurrencies = ({ simplified }) => {
     setSearchTerm(event.target.value);
   };
 
+  const sortedDates = cryptos?.map((obj) => {
+    return { ...obj };
+  });
+
+  console.log(sortedDates);
+
+  const [pageOffset, setPageOffset] = useState(0);
+  const perPage = 50;
+
+  const endOffset = pageOffset + perPage;
+  const currentItems = sortedDates?.slice(pageOffset, endOffset);
+  const pageCount = Math.ceil(sortedDates?.length / perPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * perPage) % sortedDates.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`,
+    );
+    setPageOffset(newOffset);
+  };
+
   useEffect(() => {
     const filteredData = cryptoList?.data?.coins.filter((coin) =>
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setCryptos(filteredData);
   }, [cryptoList, searchTerm]);
-
-  console.log(cryptos);
-
-  console.log(cryptoList?.data?.stats);
 
   if (isFetching) return 'Loading ...';
   return (
@@ -76,7 +94,7 @@ const CryptoCurrencies = ({ simplified }) => {
         )}
       </div>
       <div className="flex flex-wrap gap-4">
-        {cryptos?.map((currency) => (
+        {currentItems?.map((currency) => (
           <Link
             to={`/crypto/${currency.uuid}`}
             className="flex flex-col max-w-xs w-full border"
@@ -105,6 +123,26 @@ const CryptoCurrencies = ({ simplified }) => {
           </Link>
         ))}
       </div>
+      {!simplified && (
+        <ReactPaginate
+          className="flex flex-row  w-full justify-center"
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          containerClassName="container mx-auto"
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={1}
+          activeLinkClassName="bg-[#596E79]"
+          pageClassName="bg-[#DFD3C3] px-3 py-2"
+          activeClassName="text-white !bg-[#596E79] px-3 py-2"
+          breakClassName="px-3 py-2 bg-[#F0ECE3]"
+          previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
+          nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
+        />
+      )}
     </>
   );
 };

@@ -9,7 +9,7 @@
 }
 
 .light {
-  @apply bg-[#FFFFFF] text-black;
+  @apply bg-[#F8FDFA] text-black;
 }
 
 @layer components {

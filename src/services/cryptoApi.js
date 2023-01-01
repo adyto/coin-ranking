@@ -17,8 +17,12 @@ export const cryptoApi = createApi({
           `coins?limit=${count}&referenceCurrencyUuid=${currencyId}&timePeriod=${timePeriod}`,
         ),
     }),
-    getCryptosHome: builder.query({
-      query: () => createRequest(`coins`),
+    getCryptosIndex: builder.query({
+      query: () => createRequest(`indexes/coins`),
+    }),
+    getCryptosStats: builder.query({
+      query: ({ currencyId }) =>
+        createRequest(`stats?referenceCurrencyUuid=${currencyId}`),
     }),
     getCryptoDetails: builder.query({
       query: ({ coinId, timePeriod, currencyId, tags }) =>
@@ -65,7 +69,8 @@ export const cryptoApi = createApi({
 
 export const {
   useGetCryptosQuery,
-  useGetCryptosHomeQuery,
+  useGetCryptosIndexQuery,
+  useGetCryptosStatsQuery,
   useGetCryptoDetailsQuery,
   useGetCryptoPricesQuery,
   useGetCryptoHistorysQuery,

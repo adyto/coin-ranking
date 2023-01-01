@@ -23,7 +23,7 @@ const CryptoCurrencies = ({ simplified }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const { data: cryptoList, isFetching } = useGetCryptosQuery({
-    count: simplified ? 10 : 100,
+    count: simplified ? 10 : 5000,
     currencyId,
     timePeriod,
   });
@@ -94,7 +94,7 @@ const CryptoCurrencies = ({ simplified }) => {
         )}
       </div>
       <div className="flex flex-wrap gap-4">
-        {currentItems?.map((currency) => (
+        {currentItems?.map((currency, i) => (
           <Link
             to={`/crypto/${currency.uuid}`}
             className="flex flex-col max-w-xs w-full border"
@@ -102,7 +102,7 @@ const CryptoCurrencies = ({ simplified }) => {
           >
             <div className="flex flex-row justify-between items-center">
               <span>
-                {currency.rank}. {currency.name}
+                {++i}. {currency.name}
               </span>
               <img src={currency.iconUrl} className="w-9" />
             </div>

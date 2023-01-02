@@ -3,19 +3,10 @@ import millify from 'millify';
 import { Link } from 'react-router-dom';
 import { CryptoCurrencies, News } from '../index';
 import { Navbar } from '../../components';
-import { useGetCryptosStatsQuery } from '../../services/cryptoApi';
 import { useStateContext } from '../../context/StateContext';
 
 const HomePage = () => {
-  const { currencyId, currencySign, currencySymbol } = useStateContext();
-  const { data: cryptoStats, isFetching } = useGetCryptosStatsQuery({
-    currencyId,
-  });
-
-  const cryptoStat = cryptoStats?.data;
-  console.log(cryptoStat);
-
-  if (isFetching) return 'Loading...';
+  const { currencySign, currencySymbol, cryptoStat } = useStateContext();
 
   return (
     <div className="flex flex-col container mx-auto">
@@ -37,12 +28,13 @@ const HomePage = () => {
         </h2>
       </div>
       <div className="flex flex-row gap-4 justify-center mt-8">
-        <div className="border w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
+        <div className="border-none shadow-md w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
           <div className="flex flex-col">
             <p className="font-semibold text-center mb-2">Best Coins</p>
-            {cryptoStat.bestCoins.map((res, i) => (
+            {cryptoStat?.bestCoins.map((res, i) => (
               <Link
                 to={`/crypto/${res.uuid}`}
+                key={res.uuid}
                 className="flex flex-row items-center gap-4 justify-right my-2"
               >
                 <p className="text-xs w-4 text-center">{++i}</p>
@@ -55,12 +47,13 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-        <div className="border w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
+        <div className="border-none shadow-md w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
           <div className="flex flex-col">
             <p className="font-semibold text-center mb-2">Newest Coins</p>
-            {cryptoStat.newestCoins.map((res, i) => (
+            {cryptoStat?.newestCoins.map((res, i) => (
               <Link
                 to={`/crypto/${res.uuid}`}
+                key={res.uuid}
                 className="flex flex-row items-center gap-4 justify-right my-2"
               >
                 <p className="text-xs w-4 text-center">{++i}</p>

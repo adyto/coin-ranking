@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useGetCryptoReferenceCurrenciesQuery } from '../services/cryptoApi';
+import {
+  useGetCryptoReferenceCurrenciesQuery,
+  useGetCryptosStatsQuery,
+} from '../services/cryptoApi';
 
 const Context = createContext();
 
@@ -11,6 +14,7 @@ export const StateContext = ({ children }) => {
   const [currencySign, setCurrencySign] = useState('$');
 
   const { data: currencies } = useGetCryptoReferenceCurrenciesQuery();
+  const { data: cryptoStats } = useGetCryptosStatsQuery({ currencyId });
 
   const optionsCurrency = currencies?.data?.currencies.map((item) => ({
     value: `${item.uuid}`,
@@ -18,6 +22,7 @@ export const StateContext = ({ children }) => {
     symbol: `${item.symbol}`,
     sign: `${item.sign}`,
   }));
+  const cryptoStat = cryptoStats?.data;
   const optionsTimePeriod = [
     {
       value: '3h',
@@ -83,6 +88,7 @@ export const StateContext = ({ children }) => {
         darkMode,
         setDarkMode,
         toggleDarkMode,
+        cryptoStat,
       }}
     >
       {children}

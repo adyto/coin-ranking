@@ -4,20 +4,16 @@ import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
 import ReactPaginate from 'react-paginate';
+import PacmanLoader from 'react-spinners/PacmanLoader';
+
+import { Navbar } from '../../components';
 
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { useStateContext } from '../../context/StateContext';
 
 const CryptoCurrencies = ({ simplified }) => {
-  const {
-    timePeriod,
-    currencyId,
-    currencyLabel,
-    optionsCurrency,
-    optionsTimePeriod,
-    handleChangeCurrency,
-    handleChangePeriod,
-  } = useStateContext();
+  const { timePeriod, currencyId, optionsTimePeriod, handleChangePeriod } =
+    useStateContext();
 
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,8 +31,6 @@ const CryptoCurrencies = ({ simplified }) => {
   const sortedDates = cryptos?.map((obj) => {
     return { ...obj };
   });
-
-  console.log(sortedDates);
 
   const [pageOffset, setPageOffset] = useState(0);
   const perPage = 50;
@@ -60,12 +54,26 @@ const CryptoCurrencies = ({ simplified }) => {
     setCryptos(filteredData);
   }, [cryptoList, searchTerm]);
 
-  if (isFetching) return 'Loading ...';
+  if (isFetching)
+    return (
+      <div className="h-screen">
+        <Navbar />
+        <div className="flex justify-center mt-20">
+          <PacmanLoader
+            color="#22C55E"
+            size={150}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      </div>
+    );
   return (
     <>
-      <div className="my-7">
+      <div className="">
         {!simplified && (
-          <>
+          <div>
+            <Navbar />
             <div className="flex flex-row">
               <Select
                 onChange={handleChangePeriod}
@@ -75,14 +83,6 @@ const CryptoCurrencies = ({ simplified }) => {
                   label: `${timePeriod}`,
                 }}
               />
-              <Select
-                onChange={handleChangeCurrency}
-                options={optionsCurrency}
-                defaultValue={{
-                  value: `${currencyId}`,
-                  label: `${currencyLabel}`,
-                }}
-              />
             </div>
             <input
               type={'text'}
@@ -90,7 +90,7 @@ const CryptoCurrencies = ({ simplified }) => {
               onChange={handleChangeInput}
               value={searchTerm}
             />
-          </>
+          </div>
         )}
       </div>
       <div className="flex flex-wrap gap-4">
@@ -125,7 +125,7 @@ const CryptoCurrencies = ({ simplified }) => {
       </div>
       {!simplified && (
         <ReactPaginate
-          className="flex flex-row  w-full justify-center"
+          className="flex flex-wrap  w-full justify-center"
           breakLabel="..."
           nextLabel=">"
           onPageChange={handlePageClick}

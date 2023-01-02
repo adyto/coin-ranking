@@ -88,7 +88,7 @@ const CryptoDetails = () => {
         </div>
         <div className="flex flex-row">
           <NumericFormat
-            value={cryptoPrice?.price}
+            value={`${cryptoPrice?.price}`}
             displayType="text"
             thousandsGroupStyle="thousand"
             thousandSeparator=","

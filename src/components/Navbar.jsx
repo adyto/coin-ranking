@@ -6,7 +6,7 @@ import { MdLightMode } from 'react-icons/md';
 import { useStateContext } from '../context/StateContext';
 import { NumericFormat } from 'react-number-format';
 
-const Navbar = ({ cryptoStat }) => {
+const Navbar = () => {
   const {
     toggleDarkMode,
     darkMode,
@@ -16,6 +16,7 @@ const Navbar = ({ cryptoStat }) => {
     currencySymbol,
     optionsCurrency,
     handleChangeCurrency,
+    cryptoStat,
   } = useStateContext();
 
   return (
@@ -37,7 +38,7 @@ const Navbar = ({ cryptoStat }) => {
         </div>
       </div>
       <div className="flex flex-row justify-between container mx-auto py-2">
-        <div className="flex flex-row space-x-4">
+        <div className="flex flex-row space-x-4 max-lg:flex-wrap max-lg:justify-center max-lg:space-x-0 max-lg:gap-x-2 max-lg:mx-auto">
           <span className="text-xs font-semibold">
             Cryptos:{' '}
             <NumericFormat
@@ -49,12 +50,12 @@ const Navbar = ({ cryptoStat }) => {
           </span>
           <span className="text-xs font-semibold">
             Exchanges:{' '}
-            <span className="text-green-500">{cryptoStat.totalExchanges}</span>
+            <span className="text-green-500">{cryptoStat?.totalExchanges}</span>
           </span>
           <span className="text-xs font-semibold">
             Market Cap:{' '}
             <NumericFormat
-              value={cryptoStat.totalMarketCap}
+              value={cryptoStat?.totalMarketCap}
               prefix={`${
                 currencySign !== `null` ? currencySign : currencySymbol
               }`}
@@ -68,7 +69,7 @@ const Navbar = ({ cryptoStat }) => {
           <span className="text-xs font-semibold">
             24h Volume:{' '}
             <NumericFormat
-              value={cryptoStat.total24hVolume}
+              value={cryptoStat?.total24hVolume}
               prefix={`${
                 currencySign !== `null` ? currencySign : currencySymbol
               }`}
@@ -82,7 +83,7 @@ const Navbar = ({ cryptoStat }) => {
           <span className="text-xs font-semibold">
             BTC Dominance:{' '}
             <NumericFormat
-              value={cryptoStat.btcDominance}
+              value={cryptoStat?.btcDominance}
               displayType="text"
               decimalScale={1}
               suffix={'%'}
@@ -90,7 +91,7 @@ const Navbar = ({ cryptoStat }) => {
             />
           </span>
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-row max-lg:hidden">
           <Select
             onChange={handleChangeCurrency}
             options={optionsCurrency}

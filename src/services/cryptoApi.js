@@ -20,6 +20,10 @@ export const cryptoApi = createApi({
     getCryptosIndex: builder.query({
       query: () => createRequest(`indexes/coins`),
     }),
+    getCryptosSearch: builder.query({
+      query: ({ currencyId }) =>
+        createRequest(`search-suggestions?referenceCurrencyUuid=${currencyId}`),
+    }),
     getCryptosStats: builder.query({
       query: ({ currencyId }) =>
         createRequest(`stats?referenceCurrencyUuid=${currencyId}`),

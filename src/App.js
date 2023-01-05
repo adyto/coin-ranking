@@ -5,6 +5,7 @@ import {
   CryptoCurrencies,
   HomePage,
   Exchanges,
+  ExchangesDetails,
   News,
   CryptoExchanges,
   CryptoMarkets,
@@ -17,7 +18,8 @@ const App = () => {
     <div className={`${darkMode ? 'dark' : 'light'} font-Montserrat`}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/exchanges/:exchangeId" element={<Exchanges />} />
+        <Route path="/exchanges" element={<Exchanges />} />
+        <Route path="/exchanges/:exchangeId" element={<ExchangesDetails />} />
         <Route path="/cryptocurrencies" element={<CryptoCurrencies />} />
         <Route path="/crypto/:coinId" element={<CryptoDetails />} />
         <Route path="/news" element={<News />} />

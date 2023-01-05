@@ -1,7 +1,7 @@
 import React from 'react';
 import millify from 'millify';
 import { Link } from 'react-router-dom';
-import { CryptoCurrencies, News } from '../index';
+import { CryptoCurrencies, News, BannerCoin } from '../index';
 import { Navbar } from '../../components';
 import { useStateContext } from '../../context/StateContext';
 
@@ -10,7 +10,7 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col container mx-auto">
-      <Navbar cryptoStat={cryptoStat} />
+      <Navbar />
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-2xl font-bold">
           Today's Cryptocurrency Prices by Market Cap
@@ -27,46 +27,7 @@ const HomePage = () => {
           </span>
         </h2>
       </div>
-      <div className="flex flex-row gap-4 justify-center mt-8">
-        <div className="border-none shadow-md w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
-          <div className="flex flex-col">
-            <p className="font-semibold text-center mb-2">Best Coins</p>
-            {cryptoStat?.bestCoins.map((res, i) => (
-              <Link
-                to={`/crypto/${res.uuid}`}
-                key={res.uuid}
-                className="flex flex-row items-center gap-4 justify-right my-2"
-              >
-                <p className="text-xs w-4 text-center">{++i}</p>
-                <div className="flex flex-row space-x-2">
-                  <img src={res.iconUrl} className="w-4 h-4" />
-                  <span className="text-xs font-bold">{res.name}</span>
-                  <span className="text-xs">{res.symbol}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className="border-none shadow-md w-60 rounded-md p-4 bg-[#ffffff] dark:bg-[#323546]">
-          <div className="flex flex-col">
-            <p className="font-semibold text-center mb-2">Newest Coins</p>
-            {cryptoStat?.newestCoins.map((res, i) => (
-              <Link
-                to={`/crypto/${res.uuid}`}
-                key={res.uuid}
-                className="flex flex-row items-center gap-4 justify-right my-2"
-              >
-                <p className="text-xs w-4 text-center">{++i}</p>
-                <div className="flex flex-row space-x-2">
-                  <img src={res.iconUrl} className="w-4 h-4" />
-                  <span className="text-xs font-bold">{res.name}</span>
-                  <span className="text-xs">{res.symbol}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
+      <BannerCoin />
       <div className="flex justify-between items-center mt-10">
         <h2>Top 10 Cryptocurrencies in the world</h2>
         <h3>

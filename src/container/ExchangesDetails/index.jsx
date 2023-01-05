@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Exchanges = () => {
+const ExchangesDetails = () => {
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center gap-4">
       <div className="flex flex-row items-center space-x-2">
@@ -20,4 +20,4 @@ const Exchanges = () => {
   );
 };
 
-export default Exchanges;
+export default ExchangesDetails;

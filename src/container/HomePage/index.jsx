@@ -29,11 +29,16 @@ const HomePage = () => {
           </h2>
         </div>
         <BannerCoin />
-        <div className="flex justify-between items-center mt-10">
-          <h2>Top 10 Cryptocurrencies in the world</h2>
-          <h3>
-            <Link to={'/cryptocurrencies'}>Show more</Link>
-          </h3>
+        <div className="flex flex-col items-center mt-8 mb-5 gap-2">
+          <h2 className="text-xl font-bold text-center">
+            Top 10 Cryptocurrencies in the world
+          </h2>
+          <Link
+            to={'/cryptocurrencies'}
+            className="border-none px-4 py-2 rounded-md bg-slate-200 capitalize font-semibold text-sm shadow-md"
+          >
+            Show more
+          </Link>
         </div>
         <CryptoCurrencies simplified />
         <div className="flex justify-between items-center mt-10">

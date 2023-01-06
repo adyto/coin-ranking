@@ -54,6 +54,8 @@ const CryptoCurrencies = ({ simplified }) => {
     setCryptos(filteredData);
   }, [cryptoList, searchTerm]);
 
+  console.log(cryptos);
+
   if (isFetching)
     return (
       // <div className="h-screen">
@@ -71,78 +73,110 @@ const CryptoCurrencies = ({ simplified }) => {
     );
   return (
     <>
-      <div className="">
-        {!simplified && (
-          <div>
-            <Navbar />
-            <div className="flex flex-row">
-              <Select
-                onChange={handleChangePeriod}
-                options={optionsTimePeriod}
-                defaultValue={{
-                  value: `${timePeriod}`,
-                  label: `${timePeriod}`,
-                }}
-              />
-            </div>
-            <input
-              type={'text'}
-              placeholder="Search Cryptocurrency"
-              onChange={handleChangeInput}
-              value={searchTerm}
+      {!simplified ? (
+        <>
+          <Navbar />
+          <div className="flex flex-row">
+            <Select
+              onChange={handleChangePeriod}
+              options={optionsTimePeriod}
+              defaultValue={{
+                value: `${timePeriod}`,
+                label: `${timePeriod}`,
+              }}
             />
           </div>
-        )}
-      </div>
-      <div className="flex flex-wrap gap-4">
-        {currentItems?.map((currency, i) => (
-          <Link
-            to={`/crypto/${currency.uuid}`}
-            className="flex flex-col max-w-xs w-full border"
-            key={currency.uuid}
-          >
-            <div className="flex flex-row justify-between items-center">
-              <span>
-                {++i + pageOffset}. {currency.name}
-              </span>
-              <img src={currency.iconUrl} className="w-9" />
-            </div>
-            <p>Price: {millify(currency.price)}</p>
-            <p>Market Cap: {millify(currency.marketCap)}</p>
-            <p>
-              {timePeriod} Change:{' '}
-              <NumericFormat
-                value={currency.change}
-                displayType="text"
-                decimalScale={2}
-                suffix={'%'}
-                className={
-                  currency.change < 0 ? 'text-red-500' : 'text-green-500'
-                }
-              />
-            </p>
-          </Link>
-        ))}
-      </div>
-      {!simplified && (
-        <ReactPaginate
-          className="flex flex-wrap  w-full justify-center"
-          breakLabel="..."
-          nextLabel=">"
-          onPageChange={handlePageClick}
-          containerClassName="container mx-auto"
-          pageCount={pageCount}
-          previousLabel="<"
-          renderOnZeroPageCount={null}
-          pageRangeDisplayed={3}
-          marginPagesDisplayed={1}
-          activeLinkClassName="bg-[#596E79]"
-          pageClassName="bg-[#DFD3C3] px-3 py-2"
-          activeClassName="text-white !bg-[#596E79] px-3 py-2"
-          breakClassName="px-3 py-2 bg-[#F0ECE3]"
-          previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
-          nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
-        />
+          <input
+            type={'text'}
+            placeholder="Search Cryptocurrency"
+            onChange={handleChangeInput}
+            value={searchTerm}
+          />
+          <div className="flex flex-wrap gap-4">
+            {currentItems?.map((currency, i) => (
+              <Link
+                to={`/crypto/${currency.uuid}`}
+                className="flex flex-col max-w-xs w-full border"
+                key={currency.uuid}
+              >
+                <div className="flex flex-row justify-between items-center">
+                  <span>
+                    {++i + pageOffset}. {currency.name}
+                  </span>
+                  <img src={currency.iconUrl} className="w-9" />
+                </div>
+                <p>Price: {millify(currency.price)}</p>
+                <p>Market Cap: {millify(currency.marketCap)}</p>
+                <p>
+                  {timePeriod} Change:{' '}
+                  <NumericFormat
+                    value={currency.change}
+                    displayType="text"
+                    decimalScale={2}
+                    suffix={'%'}
+                    className={
+                      currency.change < 0 ? 'text-red-500' : 'text-green-500'
+                    }
+                  />
+                </p>
+              </Link>
+            ))}
+          </div>
+          <ReactPaginate
+            className="flex flex-wrap  w-full justify-center"
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            containerClassName="container mx-auto"
+            pageCount={pageCount}
+            previousLabel="<"
+            renderOnZeroPageCount={null}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={1}
+            activeLinkClassName="bg-[#596E79]"
+            pageClassName="bg-[#DFD3C3] px-3 py-2"
+            activeClassName="text-white !bg-[#596E79] px-3 py-2"
+            breakClassName="px-3 py-2 bg-[#F0ECE3]"
+            previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
+            nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
+          />
+        </>
+      ) : (
+        <div className="flex flex-wrap gap-2 justify-center">
+          {cryptos?.map((currency) => (
+            <Link
+              to={`/crypto/${currency.uuid}`}
+              className="flex flex-col w-40 border items-center py-3 px-2 rounded-md text-center"
+              key={currency.uuid}
+            >
+              <img src={currency.iconUrl} className="w-9 h-9" />
+              <p className="font-semibold">{currency.name}</p>
+              <p className="border-none px-2 py-1 bg-slate-300 rounded-lg text-xs my-2">
+                {currency.rank}
+              </p>
+              <p className="text-sm font-medium">
+                <span className="font-semibold">Price : </span>
+                {millify(currency.price)}
+              </p>
+              <p className="text-sm font-medium">
+                <span className="font-semibold">Market Cap : </span>{' '}
+                {millify(currency.marketCap)}
+              </p>
+              <p className="text-sm font-medium">
+                <span className="font-semibold">{timePeriod} Change : </span>
+                <NumericFormat
+                  value={currency.change}
+                  displayType="text"
+                  decimalScale={2}
+                  suffix={'%'}
+                  className={
+                    currency.change < 0 ? 'text-red-500' : 'text-green-500'
+                  }
+                />
+              </p>
+            </Link>
+          ))}
+        </div>
       )}
     </>
   );

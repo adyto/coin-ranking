@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BsMoon, BsCoin } from 'react-icons/bs';
+import {
+  BsMoon,
+  BsCoin,
+  BsTelegram,
+  BsTwitter,
+  BsLinkedin,
+  BsGithub,
+} from 'react-icons/bs';
 import Select from 'react-select';
 import { HiMenuAlt4, HiX } from 'react-icons/hi';
 import { MdLightMode } from 'react-icons/md';
@@ -23,7 +30,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className="bg-transparent flex flex-col w-full">
+    <div className=" bg-transparent flex flex-col w-full">
       <div className="flex flex-row justify-between container mx-auto py-2 max-lg:hidden">
         <div className="flex flex-row space-x-4 max-lg:flex-wrap max-lg:justify-center max-lg:space-x-0 max-lg:gap-x-2 max-lg:mx-auto">
           <span className="text-xs font-semibold">
@@ -119,15 +126,73 @@ const Navbar = () => {
           <div className="flex mr-4">
             <HiMenuAlt4
               onClick={() => setToggle(true)}
-              className="w-9 h-9 text-black"
+              className="w-9 h-9 text-black dark:text-zinc-50"
             />
             {toggle && (
-              <div className="fixed z-20 w-3/4 h-screen right-0 top-0 flex flex-col items-end justify-start bg-white py-4">
+              <div className="fixed z-20 w-3/4 h-screen right-0 top-0 flex flex-col items-end justify-start bg-white dark:bg-gray-800 py-4">
                 <HiX
                   onClick={() => setToggle(false)}
-                  className="w-9 h-9 text-black mr-4"
+                  className="w-9 h-9 text-black mr-4 dark:text-zinc-50"
                 />
-                <div className="flex flex-col  w-full">123</div>
+                <div className="flex flex-col w-full px-4 py-2">
+                  {['home', 'cryptocurrencies', 'exchanges', 'news'].map(
+                    (result) => (
+                      <Link
+                        to={`/${result}` === '/home' ? '/' : `/${result}`}
+                        className="text-base border-b-[1px] py-4 font-bold capitalize"
+                      >
+                        {result}
+                      </Link>
+                    ),
+                  )}
+                  <div className="flex flex-row w-full mt-4 gap-4 ">
+                    <div className="w-4/5">
+                      <Select
+                        onChange={handleChangeCurrency}
+                        options={optionsCurrency}
+                        defaultValue={{
+                          value: `${currencyId}`,
+                          label: `${currencyLabel}`,
+                        }}
+                      />
+                    </div>
+                    <div className="w-1/5">
+                      <button
+                        onClick={toggleDarkMode}
+                        className="border-[1px] w-full h-full rounded-lg"
+                      >
+                        <div className=" flex justify-center">
+                          {darkMode ? <MdLightMode /> : <BsMoon />}
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="py-4 text-center font-semibold text-sm border-b-[1px] dark:text-zinc-50 text-gray-500">
+                    <a
+                      href="https://rapidapi.com/Coinranking/api/coinranking1/"
+                      target="_blank"
+                    >
+                      API Crypto
+                    </a>
+                  </div>
+                  <div className="flex flex-row gap-4 justify-center my-4 text-gray-500 dark:text-zinc-50">
+                    <a href="https://twitter.com/adiyulianto61" target="_blank">
+                      <BsTwitter className="w-6 h-6" />
+                    </a>
+                    <a href="https://t.me/adiyulianto61" target="_blank">
+                      <BsTelegram className="w-6 h-6" />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/adi-yulianto-300486163/"
+                      target={'_blank'}
+                    >
+                      <BsLinkedin className="w-6 h-6" />
+                    </a>
+                    <a href="https://github.com/adyto" target={'_blank'}>
+                      <BsGithub className="w-6 h-6" />
+                    </a>
+                  </div>
+                </div>
               </div>
             )}
           </div>

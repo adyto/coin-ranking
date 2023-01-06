@@ -56,17 +56,18 @@ const CryptoCurrencies = ({ simplified }) => {
 
   if (isFetching)
     return (
-      <div className="h-screen">
-        <Navbar />
-        <div className="flex justify-center mt-20">
-          <PacmanLoader
-            color="#22C55E"
-            size={150}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div>
-      </div>
+      // <div className="h-screen">
+      //   <Navbar />
+      //   <div className="flex justify-center mt-20">
+      //     <PacmanLoader
+      //       color="#22C55E"
+      //       size={100}
+      //       aria-label="Loading Spinner"
+      //       data-testid="loader"
+      //     />
+      //   </div>
+      // </div>
+      'Loading...'
     );
   return (
     <>

@@ -11,12 +11,12 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col container mt-20 lg:mt-0 mx-auto">
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="text-2xl font-bold">
+      <div className="flex flex-col container mt-24 lg:mt-0 mx-auto">
+        <div className="flex flex-col items-center justify-center text-center gap-2">
+          <h1 className=" text-xl font-bold">
             Today's Cryptocurrency Prices by Market Cap
           </h1>
-          <h2 className="font-medium text-sm">
+          <h2 className="font-medium text-xs">
             The global crypto market cap is{' '}
             <span className="font-bold">
               {`${currencySign !== `null` ? currencySign : currencySymbol}`}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   BsMoon,
   BsCoin,
@@ -129,7 +130,11 @@ const Navbar = () => {
               className="w-9 h-9 text-black dark:text-zinc-50"
             />
             {toggle && (
-              <div className="fixed z-20 w-3/4 h-screen right-0 top-0 flex flex-col items-end justify-start bg-white dark:bg-gray-800 py-4">
+              <motion.div
+                whileInView={{ x: [300, 0] }}
+                transition={{ duration: 0.85, ease: 'easeOut' }}
+                className="fixed z-20 w-3/4 h-screen right-0 top-0 flex flex-col items-end justify-start bg-white dark:bg-gray-800 py-4"
+              >
                 <HiX
                   onClick={() => setToggle(false)}
                   className="w-9 h-9 text-black mr-4 dark:text-zinc-50"
@@ -266,7 +271,7 @@ const Navbar = () => {
                     </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
         </div>

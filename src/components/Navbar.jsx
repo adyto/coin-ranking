@@ -117,7 +117,7 @@ const Navbar = () => {
       </div>
       <div className="fixed inset-x-0 top-0 z-50 bg-white/25 backdrop-blur-sm border-b-2 py-4 border-white/20 lg:hidden ">
         <div className="flex flex-row w-full justify-between">
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center space-x-2 ml-4">
             <BsCoin className="w-7 h-7 text-green-500" />
             <Link to={'/'} className="font-semibold text-2xl">
               Cryptoread
@@ -145,6 +145,65 @@ const Navbar = () => {
                       </Link>
                     ),
                   )}
+                  <div className="my-4 flex flex-wrap text-xs gap-2 mx-2 w-full">
+                    <p className="text-xs font-semibold">
+                      Cryptos:{' '}
+                      <NumericFormat
+                        value={cryptoStat?.totalCoins}
+                        thousandSeparator=","
+                        displayType="text"
+                        className="text-green-500"
+                      />
+                    </p>
+                    <p className="text-xs font-semibold">
+                      Exchanges:{' '}
+                      <span className="text-green-500">
+                        {cryptoStat?.totalExchanges}
+                      </span>
+                    </p>
+                    <p className="text-xs font-semibold">
+                      Market Cap:{' '}
+                      <NumericFormat
+                        value={cryptoStat?.totalMarketCap}
+                        prefix={`${
+                          currencySign !== `null`
+                            ? currencySign
+                            : currencySymbol
+                        }`}
+                        thousandsGroupStyle="thousand"
+                        thousandSeparator=","
+                        displayType="text"
+                        decimalScale={0}
+                        className="text-green-500"
+                      />
+                    </p>
+                    <p className="text-xs font-semibold">
+                      24h Volume:{' '}
+                      <NumericFormat
+                        value={cryptoStat?.total24hVolume}
+                        prefix={`${
+                          currencySign !== `null`
+                            ? currencySign
+                            : currencySymbol
+                        }`}
+                        thousandsGroupStyle="thousand"
+                        thousandSeparator=","
+                        displayType="text"
+                        decimalScale={0}
+                        className="text-green-500"
+                      />
+                    </p>
+                    <p className="text-xs font-semibold">
+                      BTC Dominance:{' '}
+                      <NumericFormat
+                        value={cryptoStat?.btcDominance}
+                        displayType="text"
+                        decimalScale={1}
+                        suffix={'%'}
+                        className="text-green-500"
+                      />
+                    </p>
+                  </div>
                   <div className="flex flex-row w-full mt-4 gap-4 ">
                     <div className="w-4/5">
                       <Select
@@ -171,24 +230,38 @@ const Navbar = () => {
                     <a
                       href="https://rapidapi.com/Coinranking/api/coinranking1/"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       API Crypto
                     </a>
                   </div>
                   <div className="flex flex-row gap-4 justify-center my-4 text-gray-500 dark:text-zinc-50">
-                    <a href="https://twitter.com/adiyulianto61" target="_blank">
+                    <a
+                      href="https://twitter.com/adiyulianto61"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <BsTwitter className="w-6 h-6" />
                     </a>
-                    <a href="https://t.me/adiyulianto61" target="_blank">
+                    <a
+                      href="https://t.me/adiyulianto61"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <BsTelegram className="w-6 h-6" />
                     </a>
                     <a
                       href="https://www.linkedin.com/in/adi-yulianto-300486163/"
                       target={'_blank'}
+                      rel="noreferrer"
                     >
                       <BsLinkedin className="w-6 h-6" />
                     </a>
-                    <a href="https://github.com/adyto" target={'_blank'}>
+                    <a
+                      href="https://github.com/adyto"
+                      target={'_blank'}
+                      rel="noreferrer"
+                    >
                       <BsGithub className="w-6 h-6" />
                     </a>
                   </div>

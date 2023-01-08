@@ -17,6 +17,9 @@ export const cryptoApi = createApi({
           `coins?limit=${count}&referenceCurrencyUuid=${currencyId}&timePeriod=${timePeriod}`,
         ),
     }),
+    getCryptosNews: builder.query({
+      query: (count) => createRequest(`coins?limit=${count}`),
+    }),
     getCryptosIndex: builder.query({
       query: () => createRequest(`indexes/coins`),
     }),
@@ -73,6 +76,7 @@ export const cryptoApi = createApi({
 
 export const {
   useGetCryptosQuery,
+  useGetCryptosNewsQuery,
   useGetCryptosIndexQuery,
   useGetCryptosStatsQuery,
   useGetCryptoDetailsQuery,

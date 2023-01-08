@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   BsMoon,
@@ -109,10 +109,17 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row gap-8 items-center">
           <div className="flex flex-row space-x-4">
-            <Link to="/">Home</Link>
-            <Link to={'/cryptocurrencies'}>Cryptocurrencies</Link>
-            <Link to={'/exchanges'}>Exchanges</Link>
-            <Link to={'/news'}>News</Link>
+            {['home', 'cryptocurrencies', 'exchanges', 'news'].map((value) => (
+              <NavLink
+                key={value}
+                to={`/${value}` === '/home' ? '/' : `/${value}`}
+                className={({ isActive }) =>
+                  isActive ? 'text-green-400' : null
+                }
+              >
+                <span className="capitalize font-semibold">{value}</span>
+              </NavLink>
+            ))}
           </div>
         </div>
       </div>

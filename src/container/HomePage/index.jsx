@@ -11,12 +11,12 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col container mt-24 lg:mt-0 mx-auto">
+      <div className="flex flex-col container mt-24 lg:mt-10 mx-auto">
         <div className="flex flex-col items-center justify-center text-center gap-2">
-          <h1 className=" text-xl font-bold">
+          <h1 className="text-xl font-bold lg:text-2xl">
             Today's Cryptocurrency Prices by Market Cap
           </h1>
-          <h2 className="font-medium text-xs">
+          <h2 className="font-medium text-xs lg:text-sm">
             The global crypto market cap is{' '}
             <span className="font-bold">
               {`${currencySign !== `null` ? currencySign : currencySymbol}`}
@@ -41,10 +41,15 @@ const HomePage = () => {
           </Link>
         </div>
         <CryptoCurrencies simplified />
-        <div className="flex justify-between items-center mt-10">
-          <h2>Latest Crypto News</h2>
+        <div className="flex flex-col items-center mt-8 mb-5 gap-2">
+          <h2 className="text-xl font-bold text-center">Latest Crypto News</h2>
           <h3>
-            <Link to={'/news'}>Show more</Link>
+            <Link
+              to={'/news'}
+              className="border-none px-4 py-2 rounded-md bg-slate-200 capitalize font-semibold text-sm shadow-md"
+            >
+              Show more
+            </Link>
           </h3>
         </div>
         <News simplified />

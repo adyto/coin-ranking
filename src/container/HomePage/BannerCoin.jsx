@@ -6,8 +6,8 @@ const BannerCoin = () => {
   const { cryptoStat } = useStateContext();
 
   return (
-    <div className="flex max-lg:flex-wrap flex-row gap-1 justify-center mt-8 sm:gap-2">
-      <div className="border-none shadow-md w-52 rounded-md px-2 py-4 bg-[#ffffff] dark:bg-[#323546] sm:w-60 sm:px-3">
+    <div className="flex max-lg:flex-wrap flex-row gap-1 justify-center mt-8 sm:gap-2 lg:gap-3">
+      <div className="border-none shadow-md w-52 rounded-md px-2 py-4 bg-[#ffffff] dark:bg-[#323546] sm:w-60 sm:px-3 lg:w-72">
         <div className="flex flex-col">
           <p className="font-semibold text-center mb-2">Best Coins</p>
           {cryptoStat?.bestCoins.map((res, i) => (
@@ -28,7 +28,7 @@ const BannerCoin = () => {
           ))}
         </div>
       </div>
-      <div className="border-none shadow-md w-52 rounded-md px-2 py-4 bg-[#ffffff] dark:bg-[#323546] sm:w-60 sm:px-3">
+      <div className="border-none shadow-md w-52 rounded-md px-2 py-4 bg-[#ffffff] dark:bg-[#323546] sm:w-60 sm:px-3 lg:w-72">
         <div className="flex flex-col">
           <p className="font-semibold text-center mb-2">Newest Coins</p>
           {cryptoStat?.newestCoins.map((res, i) => (

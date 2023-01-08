@@ -142,16 +142,16 @@ const CryptoCurrencies = ({ simplified }) => {
           />
         </>
       ) : (
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="flex flex-wrap gap-2 justify-center lg:grid lg:grid-cols-5 lg:mx-2 xl:mx-4 xl:gap-4 2xl:gap-5">
           {cryptos?.map((currency) => (
             <Link
               to={`/crypto/${currency.uuid}`}
-              className="flex flex-col w-40 border items-center py-3 px-2 rounded-md text-center"
+              className="flex flex-col w-40 border items-center py-3 px-2 rounded-md text-center lg:w-48 xl:w-60 xl:py-4 2xl:w-72"
               key={currency.uuid}
             >
-              <img src={currency.iconUrl} className="w-9 h-9" />
+              <img src={currency.iconUrl} className="w-9 h-9 xl:w-11 xl:h-11" />
               <p className="font-semibold">{currency.name}</p>
-              <p className="border-none px-2 py-1 bg-slate-300 rounded-lg text-xs my-2">
+              <p className="border-none px-2 py-1 bg-slate-300 rounded-lg text-xs my-2 dark:bg-slate-500">
                 {currency.rank}
               </p>
               <p className="text-sm font-medium">

@@ -117,7 +117,7 @@ const News = ({ simplified }) => {
                     'https://miro.medium.com/max/2000/0*XrGPb93cPlgUzEch'
                   }
                   className={
-                    'w-auto h-24 object-contain md:h-32 lg:h-60 2xl:h-80'
+                    'w-24  h-auto object-contain md:h-32 md:w-32 lg:w-60 lg:h-60 2xl:w-80 2xl:h-80'
                   }
                 />
                 {/* w-24 h-24 object-contain md:w-32 md:h-32 lg:w-60 lg:h-60 2xl:w-80 2xl:h-80 */}

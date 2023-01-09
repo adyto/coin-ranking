@@ -105,7 +105,7 @@ const Navbar = ({ navbarSimplified, exchangesSimplified }) => {
         </div>
       </div>
       <div className="flex flex-row justify-between container mx-auto items-center max-lg:hidden">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center space-x-4">
           <BsCoin className="w-7 h-7 text-green-500" />
           <Link to={'/'} className="font-semibold text-2xl">
             Cryptoread

@@ -15,7 +15,7 @@ import { MdLightMode } from 'react-icons/md';
 import { useStateContext } from '../context/StateContext';
 import { NumericFormat } from 'react-number-format';
 
-const Navbar = () => {
+const Navbar = ({ navbarSimplified, exchangesSimplified }) => {
   const {
     toggleDarkMode,
     darkMode,
@@ -87,14 +87,18 @@ const Navbar = () => {
           </span>
         </div>
         <div className="flex flex-row">
-          <Select
-            onChange={handleChangeCurrency}
-            options={optionsCurrency}
-            defaultValue={{
-              value: `${currencyId}`,
-              label: `${currencyLabel}`,
-            }}
-          />
+          <div className="dark:bg-slate-500">
+            {!navbarSimplified && !exchangesSimplified && (
+              <Select
+                onChange={handleChangeCurrency}
+                options={optionsCurrency}
+                defaultValue={{
+                  value: `${currencyId}`,
+                  label: `${currencyLabel}`,
+                }}
+              />
+            )}
+          </div>
           <button onClick={toggleDarkMode}>
             {darkMode ? <MdLightMode /> : <BsMoon />}
           </button>

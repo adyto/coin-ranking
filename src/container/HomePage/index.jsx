@@ -35,7 +35,7 @@ const HomePage = () => {
           </h2>
           <Link
             to={'/cryptocurrencies'}
-            className="border-none px-4 py-2 rounded-md bg-slate-200 capitalize font-semibold text-sm shadow-md"
+            className="border-none px-4 py-2 rounded-md bg-slate-200 capitalize font-semibold text-sm shadow-md dark:bg-slate-500"
           >
             Show more
           </Link>
@@ -46,7 +46,7 @@ const HomePage = () => {
           <h3>
             <Link
               to={'/news'}
-              className="border-none px-4 py-2 rounded-md bg-slate-200 capitalize font-semibold text-sm shadow-md"
+              className="border-none px-4 py-2 rounded-md bg-slate-200 capitalize font-semibold text-sm shadow-md dark:bg-slate-500"
             >
               Show more
             </Link>

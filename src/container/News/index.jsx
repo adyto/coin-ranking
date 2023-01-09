@@ -46,7 +46,7 @@ const News = ({ simplified }) => {
     <>
       {!simplified ? (
         <>
-          {/* <Navbar /> */}
+          <Navbar navbarSimplified />
           <div className="flex flex-col">
             <Select
               onChange={handleChangeSelect}
@@ -106,28 +106,33 @@ const News = ({ simplified }) => {
               target="_blank"
               rel="noreferrer"
               key={news.name}
-              className={'max-w-sm pt-4 sm:max-w-lg md:max-w-2xl lg:max-w-4xl'}
+              className={
+                'max-w-sm pt-4 sm:max-w-lg md:max-w-2xl lg:max-w-4xl 2xl:max-w-7xl'
+              }
             >
-              <div className="flex flex-row gap-2 sm:gap-4">
+              <div className="flex flex-row gap-2 sm:gap-4 lg:gap-6">
                 <img
                   src={
                     news?.image?.thumbnail?.contentUrl ||
                     'https://miro.medium.com/max/2000/0*XrGPb93cPlgUzEch'
                   }
-                  className={'w-24 h-24 md:w-32 md:h-32'}
+                  className={
+                    'w-auto h-24 object-contain md:h-32 lg:h-60 2xl:h-80'
+                  }
                 />
+                {/* w-24 h-24 object-contain md:w-32 md:h-32 lg:w-60 lg:h-60 2xl:w-80 2xl:h-80 */}
                 <div className="flex flex-col gap-2">
-                  <div className="flex flex-row items-center gap-1 text-xs">
+                  <div className="flex flex-row items-center gap-1 text-xs 2xl:text-base">
                     <p className="font-bold">{news?.provider[0]?.name}</p>
                     <span className="font-bold">-</span>
                     <span>
                       {moment(news.datePublished).startOf('second').fromNow()}
                     </span>
                   </div>
-                  <p className="text-sm font-bold">{news?.name}</p>
+                  <p className="text-sm font-bold 2xl:text-2xl">{news?.name}</p>
                   <p className="max-lg:hidden">
-                    {news.description.length > 100
-                      ? `${news.description.substring(0, 100)}...`
+                    {news.description.length > 150
+                      ? `${news.description.substring(0, 150)}...`
                       : news.description}
                   </p>
                 </div>

@@ -9,6 +9,7 @@ import {
   News,
   CryptoExchanges,
   CryptoMarkets,
+  CryptoTags,
 } from './container';
 import { useStateContext } from './context/StateContext';
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/exchanges" element={<Exchanges />} />
         <Route path="/exchanges/:exchangeId" element={<ExchangesDetails />} />
         <Route path="/cryptocurrencies" element={<CryptoCurrencies />} />
+        <Route path="/cryptocurrencies/:tagsId" element={<CryptoTags />} />
         <Route path="/crypto/:coinId" element={<CryptoDetails />} />
         <Route path="/news" element={<News />} />
         <Route path="/crypto/:coinId/exchanges" element={<CryptoExchanges />} />

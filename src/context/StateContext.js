@@ -8,6 +8,7 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
   const [timePeriod, setTimePeriod] = useState('24h');
+  const [orderBy, setOrderBy] = useState('marketCap');
   const [currencyId, setCurrencyId] = useState('yhjMzLPhuIDl');
   const [currencyLabel, setCurrencyLabel] = useState('USD Dollar');
   const [currencySymbol, setCurrencySymbol] = useState('USD');
@@ -57,9 +58,34 @@ export const StateContext = ({ children }) => {
       label: '5y',
     },
   ];
+  const optionsOrderBy = [
+    {
+      value: 'marketCap',
+      label: 'marketCap',
+    },
+    {
+      value: 'price',
+      label: 'price',
+    },
+    {
+      value: '24hVolume',
+      label: '24hVolume',
+    },
+    {
+      value: 'change',
+      label: 'change',
+    },
+    {
+      value: 'listedAt',
+      label: 'listedAt',
+    },
+  ];
 
   const handleChangePeriod = (value) => {
     setTimePeriod(value.value);
+  };
+  const handleChangeOrderBy = (value) => {
+    setOrderBy(value.value);
   };
   const handleChangeCurrency = (value) => {
     setCurrencyId(value.value);
@@ -77,13 +103,16 @@ export const StateContext = ({ children }) => {
     <Context.Provider
       value={{
         timePeriod,
+        orderBy,
         currencyId,
         currencyLabel,
         currencySymbol,
         currencySign,
         optionsCurrency,
         optionsTimePeriod,
+        optionsOrderBy,
         handleChangePeriod,
+        handleChangeOrderBy,
         handleChangeCurrency,
         darkMode,
         setDarkMode,

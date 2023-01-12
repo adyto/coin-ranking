@@ -8,6 +8,8 @@ export { default as News } from './News';
 export { default as Exchanges } from './Exchanges';
 export { default as ExchangesDetails } from './ExchangesDetails';
 
+export { default as CryptoTags } from './CryptoTags';
+
 export { default as CryptoDetails } from './CryptoDetails';
 export { default as CryptoExchanges } from './CryptoDetails/CryptoExchanges';
 export { default as CryptoMarkets } from './CryptoDetails/CryptoMarkets';

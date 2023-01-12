@@ -6,14 +6,21 @@ import { NumericFormat } from 'react-number-format';
 import ReactPaginate from 'react-paginate';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
-import { Navbar } from '../../components';
+import { Navbar, NavbarBanner } from '../../components';
 
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { useStateContext } from '../../context/StateContext';
 
 const CryptoCurrencies = ({ simplified }) => {
-  const { timePeriod, currencyId, optionsTimePeriod, handleChangePeriod } =
-    useStateContext();
+  const {
+    timePeriod,
+    orderBy,
+    currencyId,
+    optionsTimePeriod,
+    optionsOrderBy,
+    handleChangePeriod,
+    handleChangeOrderBy,
+  } = useStateContext();
 
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,6 +29,7 @@ const CryptoCurrencies = ({ simplified }) => {
     count: simplified ? 10 : 5000,
     currencyId,
     timePeriod,
+    orderBy,
   });
 
   const handleChangeInput = (event) => {
@@ -56,25 +64,12 @@ const CryptoCurrencies = ({ simplified }) => {
 
   console.log(cryptos);
 
-  if (isFetching)
-    return (
-      <div className="h-screen w-screen">
-        <Navbar />
-        <div className="flex justify-center mt-20">
-          <PacmanLoader
-            color="#22C55E"
-            size={100}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div>
-      </div>
-    );
   return (
     <>
       {!simplified ? (
         <>
           <Navbar />
+          <NavbarBanner />
           <div className="flex flex-row">
             <Select
               onChange={handleChangePeriod}
@@ -84,6 +79,14 @@ const CryptoCurrencies = ({ simplified }) => {
                 label: `${timePeriod}`,
               }}
             />
+            <Select
+              onChange={handleChangeOrderBy}
+              options={optionsOrderBy}
+              defaultValue={{
+                value: `${orderBy}`,
+                label: `${orderBy}`,
+              }}
+            />
           </div>
           <input
             type={'text'}
@@ -91,6 +94,18 @@ const CryptoCurrencies = ({ simplified }) => {
             onChange={handleChangeInput}
             value={searchTerm}
           />
+          {isFetching && (
+            <div className="h-screen w-screen">
+              <div className="flex justify-center mt-20">
+                <PacmanLoader
+                  color="#22C55E"
+                  size={100}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </div>
+            </div>
+          )}
           <div className="flex flex-wrap gap-4">
             {currentItems?.map((currency, i) => (
               <Link

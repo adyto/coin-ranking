@@ -12,9 +12,15 @@ export const cryptoApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://coinranking1.p.rapidapi.com' }),
   endpoints: (builder) => ({
     getCryptos: builder.query({
-      query: ({ count, currencyId, timePeriod }) =>
+      query: ({ count, currencyId, timePeriod, orderBy }) =>
         createRequest(
-          `coins?limit=${count}&referenceCurrencyUuid=${currencyId}&timePeriod=${timePeriod}`,
+          `coins?limit=${count}&referenceCurrencyUuid=${currencyId}&timePeriod=${timePeriod}&orderBy=${orderBy}`,
+        ),
+    }),
+    getCryptosTags: builder.query({
+      query: ({ count, currencyId, timePeriod, orderBy, tagsId }) =>
+        createRequest(
+          `coins?limit=${count}&referenceCurrencyUuid=${currencyId}&timePeriod=${timePeriod}&orderBy=${orderBy}&tags%5B0%5D=${tagsId}`,
         ),
     }),
     getCryptosNews: builder.query({
@@ -76,6 +82,7 @@ export const cryptoApi = createApi({
 
 export const {
   useGetCryptosQuery,
+  useGetCryptosTagsQuery,
   useGetCryptosNewsQuery,
   useGetCryptosIndexQuery,
   useGetCryptosStatsQuery,

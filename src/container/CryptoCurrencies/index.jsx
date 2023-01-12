@@ -67,8 +67,12 @@ const CryptoCurrencies = ({ simplified }) => {
   return (
     <>
       {!simplified ? (
-        <>
+        <div className="container mx-auto">
           <Navbar />
+          <div className="flex flex-col">
+            <h1 className="text-3xl font-bold">Cryptocurrency price list</h1>
+            <h2>All cryptocurrencies ranked by {orderBy}.</h2>
+          </div>
           <NavbarBanner />
           <div className="flex flex-row">
             <Select
@@ -154,7 +158,7 @@ const CryptoCurrencies = ({ simplified }) => {
             previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
             nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
           />
-        </>
+        </div>
       ) : (
         <div className="flex flex-wrap gap-2 justify-center lg:grid lg:grid-cols-5 lg:mx-2 xl:mx-4 xl:gap-4 2xl:gap-5">
           {cryptos?.map((currency) => (

@@ -9,6 +9,8 @@ import { Navbar, NavbarBanner } from '../../components';
 import { useParams } from 'react-router-dom';
 import { useStateContext } from '../../context/StateContext';
 import { useGetCryptosTagsQuery } from '../../services/cryptoApi';
+import { BsInfo } from 'react-icons/bs';
+import { Tooltip } from 'react-tooltip';
 
 const CryptoTags = () => {
   let { tagsId } = useParams();
@@ -63,9 +65,43 @@ const CryptoTags = () => {
     setCryptosTags(filteredData);
   }, [cryptoListTags, searchTerm]);
 
+  console.log(cryptoListTags?.data);
+
   return (
-    <div>
+    <div className="container mx-auto">
       <Navbar />
+      <div className="flex flex-col">
+        <h1 className="text-3xl font-bold">
+          <span className="capitalize">{tagsId}</span> tokens
+        </h1>
+        <h2>
+          A list of all <span className="capitalize">{tagsId}</span> coins and
+          tokens ranked by {orderBy}
+        </h2>
+        <div className="flex flex-row divide-x">
+          <div className="flex flex-col">
+            <div className="flex flex-row items-center space-x-2">
+              <p className="text-xs font-medium">Market cap</p>
+              <div className="border bg-blue-100 hover:bg-blue-200 rounded-full cursor-help">
+                <BsInfo id="tooltip-market-cap" />
+                <Tooltip anchorId="tooltip-market-cap">
+                  <span>
+                    {' '}
+                    The market cap of All coins combined is ${' '}
+                    {cryptoListTags?.data?.stats?.totalMarketCap} billion.
+                    <br />
+                    This is a ... change compared to 12 hourse ago
+                  </span>
+                </Tooltip>
+              </div>
+            </div>
+            <span>
+              {isFetching ? '-' : cryptoListTags?.data?.stats?.totalMarketCap}
+            </span>
+          </div>
+        </div>
+        <h1>{isFetching ? '-' : cryptoListTags?.data?.stats?.total}</h1>
+      </div>
       <NavbarBanner />
       <div className="flex flex-row">
         <Select

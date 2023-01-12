@@ -24,6 +24,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "react-spinners": "^0.13.7",
+    "react-tooltip": "^5.4.0",
     "unix-timestamp": "^1.0.2",
     "web-vitals": "^2.1.4"
   },

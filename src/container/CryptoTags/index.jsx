@@ -18,6 +18,7 @@ const CryptoTags = () => {
     timePeriod,
     orderBy,
     currencyId,
+    currencySign,
     optionsTimePeriod,
     optionsOrderBy,
     handleChangePeriod,
@@ -52,9 +53,6 @@ const CryptoTags = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * perPage) % sortedDates.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`,
-    );
     setPageOffset(newOffset);
   };
 
@@ -65,7 +63,9 @@ const CryptoTags = () => {
     setCryptosTags(filteredData);
   }, [cryptoListTags, searchTerm]);
 
-  console.log(cryptoListTags?.data);
+  // console.log(cryptoListTags?.data);
+
+  console.log(cryptoListTags?.data?.stats);
 
   return (
     <div className="container mx-auto">
@@ -96,7 +96,7 @@ const CryptoTags = () => {
               </div>
             </div>
             <span>
-              {isFetching ? '-' : cryptoListTags?.data?.stats?.totalMarketCap}
+              {isFetching ? '-' : cryptoListTags?.data?.stats?.total24hVolume}
             </span>
           </div>
         </div>
@@ -152,8 +152,18 @@ const CryptoTags = () => {
               </span>
               <img src={currency.iconUrl} className="w-9" />
             </div>
-            <p>Price: {millify(currency.price)}</p>
-            <p>Market Cap: {millify(currency.marketCap)}</p>
+            <p>
+              Price:{' '}
+              <NumericFormat
+                value={currency.price}
+                decimalScale={2}
+                prefix={`${currencySign} `}
+                displayType="text"
+                thousandsGroupStyle="thousand"
+                thousandSeparator=","
+              />
+            </p>
+            {/* <p>Market Cap: {millify(currency.marketCap)}</p> */}
             <p>
               {timePeriod} Change:{' '}
               <NumericFormat

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const NavbarBanner = () => {
   return (
     <div className="container mx-auto">
-      <div className="flex flex-row space-x-1">
+      <div className="flex lg:flex-row space-x-1 flex-wrap justify-center">
         {[
           'all',
           'defi',

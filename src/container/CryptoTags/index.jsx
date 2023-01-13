@@ -40,6 +40,8 @@ const CryptoTags = () => {
     setSearchTerm(event.target.value);
   };
 
+  console.log(cryptoListTags?.data?.coins.length);
+
   const sortedDates = cryptosTags?.map((obj) => {
     return { ...obj };
   });
@@ -63,70 +65,72 @@ const CryptoTags = () => {
     setCryptosTags(filteredData);
   }, [cryptoListTags, searchTerm]);
 
-  // console.log(cryptoListTags?.data);
+  console.log(currentItems);
 
   console.log(cryptoListTags?.data?.stats);
 
   return (
     <div className="container mx-auto">
       <Navbar />
-      <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">
-          <span className="capitalize">{tagsId}</span> tokens
+      <div className="flex flex-col mt-24 px-4 mb-10 lg:mt-0 lg:px-0">
+        <h1 className="text-xl font-bold">
+          <span className="capitalize">
+            {tagsId === 'defi'
+              ? 'DeFi'
+              : tagsId === 'nft'
+              ? 'NFT'
+              : tagsId[0].toUpperCase() + tagsId.substring(1)}
+          </span>{' '}
+          tokens
         </h1>
         <h2>
           A list of all <span className="capitalize">{tagsId}</span> coins and
-          tokens ranked by {orderBy}
+          tokens ranked by {orderBy} and total{' '}
+          {tagsId === 'defi'
+            ? 'DeFi'
+            : tagsId === 'nft'
+            ? 'NFT'
+            : tagsId[0].toUpperCase() + tagsId.substring(1)}{' '}
+          tokens is : {isFetching ? '-' : cryptoListTags?.data?.stats?.total}
         </h2>
-        <div className="flex flex-row divide-x">
-          <div className="flex flex-col">
-            <div className="flex flex-row items-center space-x-2">
-              <p className="text-xs font-medium">Market cap</p>
-              <div className="border bg-blue-100 hover:bg-blue-200 rounded-full cursor-help">
-                <BsInfo id="tooltip-market-cap" />
-                <Tooltip anchorId="tooltip-market-cap">
-                  <span>
-                    {' '}
-                    The market cap of All coins combined is ${' '}
-                    {cryptoListTags?.data?.stats?.totalMarketCap} billion.
-                    <br />
-                    This is a ... change compared to 12 hourse ago
-                  </span>
-                </Tooltip>
-              </div>
-            </div>
-            <span>
-              {isFetching ? '-' : cryptoListTags?.data?.stats?.total24hVolume}
-            </span>
-          </div>
-        </div>
-        <h1>{isFetching ? '-' : cryptoListTags?.data?.stats?.total}</h1>
       </div>
       <NavbarBanner />
-      <div className="flex flex-row">
-        <Select
-          onChange={handleChangePeriod}
-          options={optionsTimePeriod}
-          defaultValue={{
-            value: `${timePeriod}`,
-            label: `${timePeriod}`,
-          }}
-        />
-        <Select
-          onChange={handleChangeOrderBy}
-          options={optionsOrderBy}
-          defaultValue={{
-            value: `${orderBy}`,
-            label: `${orderBy}`,
-          }}
+      <div className="flex flex-col w-full items-center gap-4">
+        <div className="flex flex-row space-x-4">
+          <Select
+            onChange={handleChangePeriod}
+            options={optionsTimePeriod}
+            defaultValue={{
+              value: `${timePeriod}`,
+              label: `${timePeriod}`,
+            }}
+          />
+          <Select
+            onChange={handleChangeOrderBy}
+            options={optionsOrderBy}
+            defaultValue={{
+              value: `${orderBy}`,
+              label: `${orderBy}`,
+            }}
+          />
+        </div>
+        <input
+          type={'text'}
+          placeholder={`Search ${
+            tagsId === 'defi'
+              ? 'DeFi'
+              : tagsId === 'nft'
+              ? 'NFT'
+              : tagsId[0].toUpperCase() + tagsId.substring(1)
+          }`}
+          onChange={handleChangeInput}
+          value={searchTerm}
+          className="border-2 px-4 py-1"
         />
       </div>
-      <input
-        type={'text'}
-        placeholder="Search Cryptocurrency"
-        onChange={handleChangeInput}
-        value={searchTerm}
-      />
+      {currentItems?.length === 0 && searchTerm !== '' && (
+        <h1 className="h-screen  w-full text-center mt-40">No Found Coins </h1>
+      )}
       {isFetching && (
         <div className="h-screen w-screen">
           <div className="flex justify-center mt-20">

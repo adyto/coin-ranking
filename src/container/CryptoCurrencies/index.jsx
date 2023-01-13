@@ -69,35 +69,43 @@ const CryptoCurrencies = ({ simplified }) => {
       {!simplified ? (
         <div className="container mx-auto">
           <Navbar />
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-bold">Cryptocurrency price list</h1>
-            <h2>All cryptocurrencies ranked by {orderBy}.</h2>
+          <div className="flex flex-col mt-24 px-4 mb-10 lg:mt-0 lg:px-0">
+            <h1 className="text-xl font-bold">Cryptocurrency price list</h1>
+            <h2>All cryptocurrencies ranked by {orderBy}</h2>
           </div>
           <NavbarBanner />
-          <div className="flex flex-row">
-            <Select
-              onChange={handleChangePeriod}
-              options={optionsTimePeriod}
-              defaultValue={{
-                value: `${timePeriod}`,
-                label: `${timePeriod}`,
-              }}
-            />
-            <Select
-              onChange={handleChangeOrderBy}
-              options={optionsOrderBy}
-              defaultValue={{
-                value: `${orderBy}`,
-                label: `${orderBy}`,
-              }}
+          <div className="flex flex-col w-full items-center gap-4">
+            <div className="flex flex-row space-x-2">
+              <Select
+                onChange={handleChangePeriod}
+                options={optionsTimePeriod}
+                defaultValue={{
+                  value: `${timePeriod}`,
+                  label: `${timePeriod}`,
+                }}
+              />
+              <Select
+                onChange={handleChangeOrderBy}
+                options={optionsOrderBy}
+                defaultValue={{
+                  value: `${orderBy}`,
+                  label: `${orderBy}`,
+                }}
+              />
+            </div>
+            <input
+              type={'text'}
+              placeholder="Search Cryptocurrency"
+              onChange={handleChangeInput}
+              value={searchTerm}
+              className="border-2 px-4 py-1"
             />
           </div>
-          <input
-            type={'text'}
-            placeholder="Search Cryptocurrency"
-            onChange={handleChangeInput}
-            value={searchTerm}
-          />
+          {currentItems?.length === 0 && searchTerm !== '' && (
+            <h1 className="h-screen  w-full text-center mt-40">
+              No Found Coins{' '}
+            </h1>
+          )}
           {isFetching && (
             <div className="h-screen w-screen">
               <div className="flex justify-center mt-20">

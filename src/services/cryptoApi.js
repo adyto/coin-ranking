@@ -38,7 +38,7 @@ export const cryptoApi = createApi({
         createRequest(`stats?referenceCurrencyUuid=${currencyId}`),
     }),
     getCryptoDetails: builder.query({
-      query: ({ coinId, timePeriod, currencyId, tags }) =>
+      query: ({ coinId, timePeriod, currencyId }) =>
         createRequest(
           `coin/${coinId}?timePeriod=${timePeriod}&referenceCurrencyUuid=${currencyId}`,
         ),

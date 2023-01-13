@@ -2,7 +2,7 @@ import React from 'react';
 import millify from 'millify';
 import { Link } from 'react-router-dom';
 import { CryptoCurrencies, News, BannerCoin } from '../index';
-import { Navbar } from '../../components';
+import { Navbar, Footer } from '../../components';
 import { useStateContext } from '../../context/StateContext';
 
 const HomePage = () => {
@@ -54,6 +54,7 @@ const HomePage = () => {
         </div>
         <News simplified />
       </div>
+      <Footer />
     </>
   );
 };

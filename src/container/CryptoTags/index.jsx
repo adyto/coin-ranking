@@ -70,9 +70,9 @@ const CryptoTags = () => {
   console.log(cryptoListTags?.data?.stats);
 
   return (
-    <div className="container mx-auto">
+    <>
       <Navbar />
-      <div className="flex flex-col mt-24 px-4 mb-10 lg:mt-0 lg:px-0">
+      <div className="flex flex-col mt-24 px-4 mb-10 lg:mt-0 lg:px-0 container mx-auto">
         <h1 className="text-xl font-bold">
           <span className="capitalize">
             {tagsId === 'defi'
@@ -143,45 +143,48 @@ const CryptoTags = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-4">
-        {currentItems?.map((currency, i) => (
-          <Link
-            to={`/crypto/${currency.uuid}`}
-            className="flex flex-col max-w-xs w-full border"
-            key={currency.uuid}
-          >
-            <div className="flex flex-row justify-between items-center">
-              <span>
-                {++i + pageOffset}. {currency.name}
-              </span>
-              <img src={currency.iconUrl} className="w-9" />
-            </div>
-            <p>
-              Price:{' '}
-              <NumericFormat
-                value={currency.price}
-                decimalScale={2}
-                prefix={`${currencySign} `}
-                displayType="text"
-                thousandsGroupStyle="thousand"
-                thousandSeparator=","
-              />
-            </p>
-            {/* <p>Market Cap: {millify(currency.marketCap)}</p> */}
-            <p>
-              {timePeriod} Change:{' '}
-              <NumericFormat
-                value={currency.change}
-                displayType="text"
-                decimalScale={2}
-                suffix={'%'}
-                className={
-                  currency.change < 0 ? 'text-red-500' : 'text-green-500'
-                }
-              />
-            </p>
-          </Link>
-        ))}
+      <div className="container mx-auto">
+        <div className="flex flex-wrap gap-2 justify-center">
+          {currentItems?.map((currency, i) => (
+            <Link
+              to={`/crypto/${currency.uuid}`}
+              className="flex flex-col w-40 border items-center py-3 px-2 rounded-md text-center"
+              key={currency.uuid}
+            >
+              <img src={currency.iconUrl} className="w-9 h-9" />
+              <p className="font-semibold">{currency.name}</p>
+              <p className="border-none font-semibold px-2 py-1 bg-slate-300 rounded-lg text-xs my-2 dark:bg-slate-500">
+                {++i + pageOffset}
+              </p>
+              <p className="text-sm font-medium">
+                <span lassName="font-semibold">Price: </span>
+                <NumericFormat
+                  value={currency.price}
+                  decimalScale={2}
+                  prefix={`${currencySign} `}
+                  displayType="text"
+                  thousandsGroupStyle="thousand"
+                  thousandSeparator=","
+                />
+              </p>
+              <p className="text-sm font-semibold">
+                Rank : <span className="font-medium">{currency.rank}</span>
+              </p>
+              <p className="text-sm font-medium">
+                <span className="font-semibold">{timePeriod} Change : </span>
+                <NumericFormat
+                  value={currency.change}
+                  displayType="text"
+                  decimalScale={2}
+                  suffix={'%'}
+                  className={
+                    currency.change < 0 ? 'text-red-500' : 'text-green-500'
+                  }
+                />
+              </p>
+            </Link>
+          ))}
+        </div>
       </div>
       <ReactPaginate
         className="flex flex-wrap  w-full justify-center"
@@ -201,7 +204,7 @@ const CryptoTags = () => {
         previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
         nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
       />
-    </div>
+    </>
   );
 };
 

@@ -86,7 +86,7 @@ const Navbar = ({ navbarSimplified, exchangesSimplified }) => {
             />
           </span>
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-row space-x-4">
           <div className="dark:bg-slate-500">
             {!navbarSimplified && !exchangesSimplified && (
               <Select

@@ -11,6 +11,7 @@ import { useStateContext } from '../../context/StateContext';
 import { useGetCryptosTagsQuery } from '../../services/cryptoApi';
 import { BsInfo } from 'react-icons/bs';
 import { Tooltip } from 'react-tooltip';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 const CryptoTags = () => {
   let { tagsId } = useParams();
@@ -95,7 +96,7 @@ const CryptoTags = () => {
         </h2>
       </div>
       <NavbarBanner />
-      <div className="flex flex-col w-full items-center gap-4">
+      <div className="flex flex-col w-full items-center gap-4 my-4">
         <div className="flex flex-row space-x-4">
           <Select
             onChange={handleChangePeriod}
@@ -187,22 +188,22 @@ const CryptoTags = () => {
         </div>
       </div>
       <ReactPaginate
-        className="flex flex-wrap  w-full justify-center"
+        className="flex flex-wrap  w-full justify-center py-20 items-center font-bold"
         breakLabel="..."
-        nextLabel=">"
+        nextLabel={<GrFormNext className="w-5 h-5" />}
         onPageChange={handlePageClick}
         containerClassName="container mx-auto"
         pageCount={pageCount}
-        previousLabel="<"
+        previousLabel={<GrFormPrevious className="w-5 h-5" />}
         renderOnZeroPageCount={null}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
-        activeLinkClassName="bg-[#596E79]"
-        pageClassName="bg-[#DFD3C3] px-3 py-2"
-        activeClassName="text-white !bg-[#596E79] px-3 py-2"
-        breakClassName="px-3 py-2 bg-[#F0ECE3]"
-        previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
-        nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
+        activeLinkClassName="bg-[#002358]"
+        pageClassName="px-3 py-2 hover:text-green-500"
+        activeClassName="text-white !bg-[#002358] px-3 py-2 rounded-md hover:text-white"
+        breakClassName="px-3 py-2"
+        previousClassName="bg-[#Ffffff] border-2  py-3 px-7 rounded-full mr-5 dark:bg-slate-400 dark:border-slate-700"
+        nextClassName="bg-[#Ffffff] border-2  py-3 px-7 rounded-full ml-5 dark:bg-slate-400 dark:border-slate-700"
       />
     </>
   );

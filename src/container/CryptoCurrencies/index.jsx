@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
 import ReactPaginate from 'react-paginate';
 import PacmanLoader from 'react-spinners/PacmanLoader';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 import { Navbar, NavbarBanner } from '../../components';
 
@@ -68,14 +69,14 @@ const CryptoCurrencies = ({ simplified }) => {
   return (
     <>
       {!simplified ? (
-        <div className="container mx-auto">
+        <>
           <Navbar />
-          <div className="flex flex-col mt-24 px-4 mb-10 lg:mt-0 lg:px-0">
+          <div className="flex flex-col mt-24 px-4 mb-10 lg:mt-0 lg:px-0 container mx-auto">
             <h1 className="text-xl font-bold">Cryptocurrency price list</h1>
             <h2>All cryptocurrencies ranked by {orderBy}</h2>
           </div>
           <NavbarBanner />
-          <div className="flex flex-col w-full items-center gap-4">
+          <div className="flex flex-col w-full items-center gap-4 my-4">
             <div className="flex flex-row space-x-2">
               <Select
                 onChange={handleChangePeriod}
@@ -119,66 +120,70 @@ const CryptoCurrencies = ({ simplified }) => {
               </div>
             </div>
           )}
-          <div className="flex flex-wrap gap-2 justify-center">
-            {currentItems?.map((currency, i) => (
-              <Link
-                to={`/crypto/${currency.uuid}`}
-                className="flex flex-col w-40 border items-center py-3 px-2 rounded-md text-center"
-                key={currency.uuid}
-              >
-                <img src={currency.iconUrl} className="w-9 h-9" />
-                <p className="font-semibold">{currency.name}</p>
-                <p className="border-none font-semibold px-2 py-1 bg-slate-300 rounded-lg text-xs my-2 dark:bg-slate-500">
-                  {++i + pageOffset}
-                </p>
-                <p className="text-sm font-medium">
-                  <span lassName="font-semibold">Price: </span>
-                  <NumericFormat
-                    value={currency.price}
-                    decimalScale={2}
-                    prefix={`${currencySign} `}
-                    displayType="text"
-                    thousandsGroupStyle="thousand"
-                    thousandSeparator=","
-                  />
-                </p>
-                <p className="text-sm font-semibold">
-                  Rank : <span className="font-medium">{currency.rank}</span>
-                </p>
-                <p className="text-sm font-medium">
-                  <span className="font-semibold">{timePeriod} Change : </span>
-                  <NumericFormat
-                    value={currency.change}
-                    displayType="text"
-                    decimalScale={2}
-                    suffix={'%'}
-                    className={
-                      currency.change < 0 ? 'text-red-500' : 'text-green-500'
-                    }
-                  />
-                </p>
-              </Link>
-            ))}
+          <div className="container mx-auto">
+            <div className="flex flex-wrap gap-2 justify-center">
+              {currentItems?.map((currency, i) => (
+                <Link
+                  to={`/crypto/${currency.uuid}`}
+                  className="flex flex-col w-40 border items-center py-3 px-2 rounded-md text-center"
+                  key={currency.uuid}
+                >
+                  <img src={currency.iconUrl} className="w-9 h-9" />
+                  <p className="font-semibold">{currency.name}</p>
+                  <p className="border-none font-semibold px-2 py-1 bg-slate-300 rounded-lg text-xs my-2 dark:bg-slate-500">
+                    {++i + pageOffset}
+                  </p>
+                  <p className="text-sm font-medium">
+                    <span lassName="font-semibold">Price: </span>
+                    <NumericFormat
+                      value={currency.price}
+                      decimalScale={2}
+                      prefix={`${currencySign} `}
+                      displayType="text"
+                      thousandsGroupStyle="thousand"
+                      thousandSeparator=","
+                    />
+                  </p>
+                  <p className="text-sm font-semibold">
+                    Rank : <span className="font-medium">{currency.rank}</span>
+                  </p>
+                  <p className="text-sm font-medium">
+                    <span className="font-semibold">
+                      {timePeriod} Change :{' '}
+                    </span>
+                    <NumericFormat
+                      value={currency.change}
+                      displayType="text"
+                      decimalScale={2}
+                      suffix={'%'}
+                      className={
+                        currency.change < 0 ? 'text-red-500' : 'text-green-500'
+                      }
+                    />
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
           <ReactPaginate
-            className="flex flex-wrap  w-full justify-center"
+            className="flex flex-wrap  w-full justify-center py-20 items-center font-bold"
             breakLabel="..."
-            nextLabel=">"
+            nextLabel={<GrFormNext className="w-5 h-5" />}
             onPageChange={handlePageClick}
             containerClassName="container mx-auto"
             pageCount={pageCount}
-            previousLabel="<"
+            previousLabel={<GrFormPrevious className="w-5 h-5" />}
             renderOnZeroPageCount={null}
             pageRangeDisplayed={3}
             marginPagesDisplayed={1}
-            activeLinkClassName="bg-[#596E79]"
-            pageClassName="bg-[#DFD3C3] px-3 py-2"
-            activeClassName="text-white !bg-[#596E79] px-3 py-2"
-            breakClassName="px-3 py-2 bg-[#F0ECE3]"
-            previousClassName="bg-[#F0ECE3]  py-2 px-5 rounded-l-lg"
-            nextClassName="bg-[#F0ECE3]  py-2 px-5 rounded-r-lg"
+            activeLinkClassName="bg-[#002358]"
+            pageClassName="px-3 py-2 hover:text-green-500"
+            activeClassName="text-white !bg-[#002358] px-3 py-2 rounded-md hover:text-white"
+            breakClassName="px-3 py-2"
+            previousClassName="bg-[#Ffffff] border-2  py-3 px-7 rounded-full mr-5 dark:bg-slate-400 dark:border-slate-700"
+            nextClassName="bg-[#Ffffff] border-2  py-3 px-7 rounded-full ml-5 dark:bg-slate-400 dark:border-slate-700"
           />
-        </div>
+        </>
       ) : (
         <div className="flex flex-wrap gap-2 justify-center lg:grid lg:grid-cols-5 lg:mx-2 xl:mx-4 xl:gap-4 2xl:gap-5">
           {cryptos?.map((currency) => (
